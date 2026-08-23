@@ -114,9 +114,9 @@ If using this codebase or benchmark dataset in academic research, please cite:
 ```bibtex
 @mastersthesis{medical_nlp_extraction_2026,
   title={Artificial Intelligence and Natural Language Processing for Automatic Data Extraction in Medical Systematic Reviews},
-  author={[Author Name]},
+  author={[Rayan Alhaysuni]},
   year={2026},
-  school={[University Name]},
+  school={[University Of Birmingham]},
   type={Master's Thesis}
 }
 ```
