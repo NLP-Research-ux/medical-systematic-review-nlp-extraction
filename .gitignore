@@ -10,3 +10,4 @@ __pycache__/
 # Downloaded corpus files; reproduced using the downloader
 data/pubmed20k/*.txt
 data/pubmed20k/*.tmp
+.venv-svm/
