@@ -11,7 +11,7 @@ classifying clinical abstract sentences into four roles:
 The evaluated task is sentence-role classification. It does not extract
 Population, Intervention, Comparator and Outcome (PICO) entities.
 
-## Dataset and Revision
+## Dataset
 
 The evaluation uses the original PubMed 20k RCT train and test files from:
 
