@@ -1,0 +1,61 @@
+     class  rank               term  coefficient
+BACKGROUND     1  trial investigate     2.482501
+BACKGROUND     2       aimed assess     2.452668
+BACKGROUND     3      trial compare     2.336986
+BACKGROUND     4              exist     2.085039
+BACKGROUND     5    trial determine     1.993391
+BACKGROUND     6                aim     1.942545
+BACKGROUND     7      study compare     1.928638
+BACKGROUND     8               aims     1.885519
+BACKGROUND     9     study evaluate     1.869893
+BACKGROUND    10     trial evaluate     1.857109
+BACKGROUND    11            eudract     1.851152
+BACKGROUND    12             suffer     1.839750
+BACKGROUND    13      aimed compare     1.805105
+BACKGROUND    14       inconsistent     1.798191
+BACKGROUND    15             modern     1.784825
+   METHODS     1     provides class     5.825170
+   METHODS     2           randomly     3.680223
+   METHODS     3      05 considered     3.347883
+   METHODS     4       used compare     2.857848
+   METHODS     5         calculated     2.740737
+   METHODS     6           assessed     2.725980
+   METHODS     7         randomized     2.649459
+   METHODS     8     used determine     2.601090
+   METHODS     9      used evaluate     2.560033
+   METHODS    10            divided     2.508936
+   METHODS    11   factorial design     2.506022
+   METHODS    12          extracted     2.493280
+   METHODS    13           measured     2.455361
+   METHODS    14    compared groups     2.430354
+   METHODS    15      group receive     2.423072
+OBJECTIVES     1            compare     5.463722
+OBJECTIVES     2           evaluate     4.862041
+OBJECTIVES     3        investigate     4.630601
+OBJECTIVES     4          determine     4.444593
+OBJECTIVES     5            examine     3.674359
+OBJECTIVES     6             assess     3.531566
+OBJECTIVES     7            observe     3.507328
+OBJECTIVES     8            explore     3.075809
+OBJECTIVES     9       characterize     2.706366
+OBJECTIVES    10             verify     2.367015
+OBJECTIVES    11            analyze     2.177290
+OBJECTIVES    12       arthritis ra     2.156864
+OBJECTIVES    13      department ed     2.096121
+OBJECTIVES    14 sequential therapy     2.030221
+OBJECTIVES    15       nonsteroidal     1.900128
+   RESULTS     1      significantly     5.382692
+   RESULTS     2                001     4.290198
+   RESULTS     3             showed     3.858245
+   RESULTS     4               0001     3.469914
+   RESULTS     5           revealed     3.333742
+   RESULTS     6             tended     3.265971
+   RESULTS     7            similar     3.259414
+   RESULTS     8                did     3.243748
+   RESULTS     9         comparable     3.118478
+   RESULTS    10        significant     3.095762
+   RESULTS    11          decreased     2.935625
+   RESULTS    12         difference     2.855433
+   RESULTS    13             higher     2.790005
+   RESULTS    14         did differ     2.747133
+   RESULTS    15        differences     2.701621

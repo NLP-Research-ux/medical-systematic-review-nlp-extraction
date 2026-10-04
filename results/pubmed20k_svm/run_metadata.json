@@ -1,0 +1,54 @@
+{
+  "task": "Four-class sentence-role classification",
+  "split": "Original PubMed 20k RCT train/test partitions",
+  "label_mapping": "OBJECTIVE -> OBJECTIVES",
+  "conclusions_excluded_train": 27168,
+  "conclusions_excluded_test": 4571,
+  "train_rows_before_deduplication": 152872,
+  "test_rows_before_deduplication": 25564,
+  "train_duplicate_rows_removed": 1074,
+  "test_duplicate_rows_removed": 111,
+  "test_sentences_also_in_train_removed": 192,
+  "article_overlap": 0,
+  "train_rows": 151798,
+  "test_rows": 25261,
+  "train_articles": 15000,
+  "test_articles": 2500,
+  "train_class_counts": {
+    "METHODS": 58680,
+    "RESULTS": 57854,
+    "BACKGROUND": 21438,
+    "OBJECTIVES": 13826
+  },
+  "test_class_counts": {
+    "METHODS": 9719,
+    "RESULTS": 9664,
+    "BACKGROUND": 3550,
+    "OBJECTIVES": 2328
+  },
+  "run_at_utc": "2026-09-30T10:43:50.679023+00:00",
+  "python_version": "3.12.8",
+  "scikit_learn_version": "1.9.1",
+  "numpy_version": "2.5.3",
+  "pandas_version": "3.0.6",
+  "model": "TF-IDF + LinearSVC",
+  "ngram_range": [
+    1,
+    2
+  ],
+  "max_features": 10000,
+  "stop_words": "english",
+  "svm_C": 1.0,
+  "random_state": 42,
+  "max_iter": 10000,
+  "dual": "auto",
+  "vocabulary_size": 10000,
+  "hyperparameter_tuning": "None; fixed baseline settings",
+  "misclassified_sentences": 4496,
+  "decision_margin_note": "Top-two decision-score gap; not a probability.",
+  "evaluation_scope": "Filtered, deduplicated four-class subset of PubMed 20k RCT; not the original five-class benchmark or PICO extraction.",
+  "source_sha256": {
+    "train.txt": "8fda243202edd207fb61214e21f5629bba545522b921816d20d516e64d602d5b",
+    "test.txt": "8511b832c1ee66b3df52df23c16ad81a69711ddd5b3a485421da3f8e9d5b44f4"
+  }
+}

@@ -1,0 +1,12 @@
+# Local Python environment and cache
+.venv/
+__pycache__/
+*.pyc
+
+# Credentials
+.env
+.env.*
+
+# Downloaded corpus files; reproduced using the downloader
+data/pubmed20k/*.txt
+data/pubmed20k/*.tmp

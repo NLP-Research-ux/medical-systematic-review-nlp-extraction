@@ -1,122 +1,155 @@
-# Artificial Intelligence and Natural Language Processing for Automatic Data Extraction in Medical Systematic Reviews
+# Clinical Sentence-Role Classification Using TF-IDF and a Linear SVM
 
-[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
-[![Python 3.10+](https://img.shields.io/badge/Python-3.10+-brightgreen.svg)](https://www.python.org/)
-[![Framework: Streamlit](https://img.shields.io/badge/Framework-Streamlit-red.svg)](https://streamlit.io/)
+This project evaluates an interpretable support vector machine (SVM) for
+classifying clinical abstract sentences into four roles:
 
-Official codebase and benchmark evaluation suite for the Master's dissertation: **"Artificial Intelligence and Natural Language Processing for Automatic Data Extraction in Medical Systematic Reviews: Evaluating Classical Machine Learning, Transformers, and Generative Large Language Models"**.
+- BACKGROUND
+- OBJECTIVES
+- METHODS
+- RESULTS
 
----
+The evaluated task is sentence-role classification. It does not extract
+Population, Intervention, Comparator and Outcome (PICO) entities.
 
-## Abstract & Overview
+## Dataset and Revision
 
-Systematic reviews represent the highest tier of evidence-based healthcare decision-making, yet manual data extraction of Population, Intervention, Comparison, and Outcome (**PICO**) trial characteristics remains a severe labor-intensive bottleneck. 
+The evaluation uses the original PubMed 20k RCT train and test files from:
 
-This repository provides an end-to-end reproducible pipeline evaluating **three distinct NLP paradigms** across a curated 5,000-record benchmark derived from the PubMed 20k Randomized Controlled Trial (RCT) corpus:
-1. **Classical Baseline**: TF-IDF vectorization paired with a Linear Support Vector Machine (SVM).
-2. **Representation Learning**: Dense biomedical sentence embeddings via `all-MiniLM-L6-v2`.
-3. **Generative Large Language Models**: Zero-shot structured clinical prompt engineering.
+https://github.com/Franck-Dernoncourt/pubmed-rct
 
----
+The original OBJECTIVE label is renamed OBJECTIVES. CONCLUSIONS sentences
+are excluded to match the four-class scope.
 
-## Benchmark Evaluation Results
+The original article-level partitions are preserved. Exact duplicate
+sentences are removed within each partition, and test sentences also
+present in training are excluded.
 
-All models were evaluated on the exact same 5,000-sentence standardized holdout test set:
+The final dataset contains:
 
-| Model Architecture | Extraction Paradigm | Overall Accuracy | Precision (Methods) | Precision (Results) | Macro-Weighted F1 |
-| :--- | :--- | :---: | :---: | :---: | :---: |
-| **TF-IDF + Linear SVM** | Classical ML | 66.4% | 0.68 | 0.64 | 0.6512 |
-| **MiniLM SentenceTransformers** | Dense Embeddings | 73.8% | 0.74 | 0.71 | 0.7245 |
-| **Zero-Shot LLM API** | Generative AI | **91.0%** | **0.93** | **0.91** | **0.9028** |
+| Split | Articles | Sentences |
+|---|---:|---:|
+| Training | 15,000 | 151,798 |
+| Test | 2,500 | 25,261 |
 
-> **Key Finding**: Zero-shot LLMs overcame domain-specific vocabulary barriers without task-specific supervised training, achieving an **F1-score of 0.9028**, outperforming classical baselines by over 18%.
+No article IDs overlap between training and testing.
 
----
+The previous benchmark_dataset.csv is excluded from the revised evaluation.
+An audit found only five distinct sentence bases per class after removing
+final parenthetical additions. Its perfect classification score did not
+demonstrate generalisation to varied clinical abstracts.
 
-## Repository Structure
+These revised results concern a filtered, deduplicated four-class subset,
+not the original five-class PubMed benchmark.
 
-```text
-├── data/
-│   ├── README.md               # Data dictionary and PICO labeling protocol
-│   └── benchmark_dataset.csv   # 5,000-record benchmark dataset
-├── src/
-│   ├── __init__.py
-│   ├── data_loader.py          # Data ingestion, cleaning, and train/test splits
-│   ├── classical_baseline.py   # TF-IDF + Linear SVM model
-│   ├── transformer_embedding.py# SentenceTransformer dense embedding model
-│   ├── llm_zero_shot_extractor.py # Zero-shot LLM structured extraction pipeline
-│   └── evaluate_metrics.py     # Multi-class evaluation and error analysis
-├── app/
-│   └── app.py                  # Interactive Streamlit clinical prototype
-├── requirements.txt            # Python library dependencies
-├── .env.example                # Environment variables template
-└── README.md                   # Project documentation & replication guide
-```
+## Method
 
----
+- TF-IDF features: unigrams and bigrams
+- Maximum vocabulary: 10,000 features
+- Stop-word list: English
+- Classifier: scikit-learn LinearSVC
+- C: 1.0
+- Random seed: 42
+- Maximum iterations: 10,000
+- Solver setting: dual="auto"
 
-## Getting Started & Installation
+The TF-IDF vocabulary and classifier are fitted using training data only.
+Model settings are fixed; no hyperparameter search was performed.
 
-### 1. Clone the Repository
-```bash
-git clone https://github.com/[your-username]/medical-systematic-review-nlp-extraction.git
-cd medical-systematic-review-nlp-extraction
-```
+## Verified Results
 
-### 2. Set Up Virtual Environment
-```bash
-python -m venv venv
-# On Windows:
-venv\Scripts\activate
-# On macOS/Linux:
-source venv/bin/activate
-```
+The completed run produced:
 
-### 3. Install Dependencies
-```bash
-pip install -r requirements.txt
-```
+- Accuracy: 82.20%
+- Macro F1: 0.7483
+- Weighted F1: 0.8186
+- Correct predictions: 20,765
+- Misclassified sentences: 4,496
 
-### 4. Configure API Keys (Optional for LLM pipeline)
-```bash
-cp .env.example .env
-# Edit .env and paste your OpenAI API key:
-# OPENAI_API_KEY=your_key_here
-```
+| Class | Precision | Recall | F1 | Support |
+|---|---:|---:|---:|---:|
+| BACKGROUND | 0.6796 | 0.6645 | 0.6720 | 3,550 |
+| OBJECTIVES | 0.6553 | 0.5056 | 0.5708 | 2,328 |
+| METHODS | 0.8368 | 0.8948 | 0.8649 | 9,719 |
+| RESULTS | 0.8887 | 0.8829 | 0.8858 | 9,664 |
 
----
+The largest individual confusion is RESULTS predicted as METHODS
+(958 sentences). OBJECTIVES has the lowest recall; 769 OBJECTIVES
+sentences were predicted as BACKGROUND.
 
-## Running the Pipelines
+The Streamlit prototype has been removed. Transformer and LLM evaluations
+are excluded, and their previous fixed-output fallbacks have been removed.
 
-### Run Classical Baseline & Transformer Models
-```bash
+## Reproduce the Evaluation on Windows
+
+From the project root, using Python 3.12:
+
+```powershell
+python -m venv .venv
+.\.venv\Scripts\Activate.ps1
+python -m pip install -r requirements.txt
+python src/download_dataset.py
+python src/data_loader.py
 python src/classical_baseline.py
-python src/transformer_embedding.py
-```
-
-### Run Multi-Class Benchmark Evaluation
-```bash
 python src/evaluate_metrics.py
 ```
 
-### Launch Interactive Streamlit Prototype
-```bash
-streamlit run app/app.py
+Create the virtual environment only once. On subsequent visits, activate
+the existing environment.
+
+Save installed package versions using:
+
+```powershell
+python -m pip freeze | Out-File -Encoding utf8 results/pubmed20k_svm/environment.txt
 ```
-Open `http://localhost:8501` in your browser to test interactive PICO extraction from clinical abstracts.
 
----
+The evaluated run used Python 3.12.8 and scikit-learn 1.9.1.
+Full installed versions are recorded in environment.txt. Small numerical
+differences may occur with different software versions.
 
-## Citation
+The downloader records source URLs and SHA-256 checksums in
+data/pubmed20k/source_manifest.json. It downloads from the upstream master
+branch, so retain the downloaded source files and compare their hashes
+when reproducing this particular run.
 
-If using this codebase or benchmark dataset in academic research, please cite:
+## Saved Outputs
 
-```bibtex
-@mastersthesis{medical_nlp_extraction_2026,
-  title={Artificial Intelligence and Natural Language Processing for Automatic Data Extraction in Medical Systematic Reviews},
-  author={[Rayan Alhaysuni]},
-  year={2026},
-  school={[University Of Birmingham]},
-  type={Master's Thesis}
-}
-```
+Outputs are written to results/pubmed20k_svm:
+
+- confusion_matrix.csv, .png and .pdf
+- classification_report.csv and .txt
+- metrics.json
+- top_terms.csv and .txt
+- predictions.csv
+- misclassified_sentences.csv
+- error_examples.csv
+- training_records.csv
+- run_metadata.json
+- environment.txt
+- svm_pipeline.joblib
+
+The confusion matrix uses actual classes in rows and predicted classes
+in columns. Top terms are ranked by positive SVM coefficients.
+
+Error examples include features that favour the predicted class over
+the reference class. These help explain model decisions but require
+contextual interpretation. Decision margins are not probabilities.
+
+evaluate_metrics.py recalculates metrics from predictions.csv.
+It contains no predefined performance results.
+
+## Limitations
+
+This evaluation does not measure PICO extraction accuracy, reviewer
+workload reduction, or suitability as an independent second reviewer.
+It uses one fixed model configuration and one held-out test partition.
+Selected error examples may reveal ambiguous labels or mixed sentence
+content, but they do not establish the prevalence of those issues.
+
+## Dataset Citation
+
+Dernoncourt, F. and Lee, J.Y. (2017) ‘PubMed 200k RCT: a Dataset for
+Sequential Sentence Classification in Medical Abstracts’, Proceedings
+of the Eighth International Joint Conference on Natural Language
+Processing, Volume 2: Short Papers, pp. 308–313.
+
+https://aclanthology.org/I17-2052/

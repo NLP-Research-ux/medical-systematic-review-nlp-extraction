@@ -1,0 +1,19 @@
+{
+  "checked_at_utc": "2026-09-30T10:24:10.367443+00:00",
+  "source": "Franck-Dernoncourt/pubmed-rct",
+  "dataset": "PubMed_20k_RCT",
+  "files": [
+    {
+      "filename": "train.txt",
+      "source_url": "https://raw.githubusercontent.com/Franck-Dernoncourt/pubmed-rct/master/PubMed_20k_RCT/train.txt",
+      "bytes": 29384101,
+      "sha256": "8fda243202edd207fb61214e21f5629bba545522b921816d20d516e64d602d5b"
+    },
+    {
+      "filename": "test.txt",
+      "source_url": "https://raw.githubusercontent.com/Franck-Dernoncourt/pubmed-rct/master/PubMed_20k_RCT/test.txt",
+      "bytes": 4889845,
+      "sha256": "8511b832c1ee66b3df52df23c16ad81a69711ddd5b3a485421da3f8e9d5b44f4"
+    }
+  ]
+}
